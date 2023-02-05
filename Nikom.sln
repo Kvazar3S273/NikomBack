@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nikom", "Nikom\Nikom.csproj", "{5F017355-2F16-4644-AA95-6BEA3D56DF62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nikom", "Nikom\Nikom.csproj", "{5F017355-2F16-4644-AA95-6BEA3D56DF62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Nikom", "Data.Nikom\Data.Nikom.csproj", "{023EC0B1-A589-48F0-9759-605C41057AFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5F017355-2F16-4644-AA95-6BEA3D56DF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F017355-2F16-4644-AA95-6BEA3D56DF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F017355-2F16-4644-AA95-6BEA3D56DF62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{023EC0B1-A589-48F0-9759-605C41057AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{023EC0B1-A589-48F0-9759-605C41057AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{023EC0B1-A589-48F0-9759-605C41057AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{023EC0B1-A589-48F0-9759-605C41057AFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

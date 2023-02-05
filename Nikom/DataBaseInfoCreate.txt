@@ -1,0 +1,13 @@
+﻿Server = 91.238.103.95
+Port = 5432
+Database = dbnikom
+User Id = usernikom
+Password = $5$BG)Ketnikomhw$t!Ube}xk!!{}!!
+
+sudo su - postgres
+psql
+create database dbnikom;
+create user usernikom with encrypted password '$5$BG)Ketnikomhw$t!Ube}xk!!{}!!';
+grant all privileges on database dbnikom to usernikom;
+
+

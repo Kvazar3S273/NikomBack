@@ -1,0 +1,14 @@
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\bin\Debug\net6.0\Data.Nikom.deps.json
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\bin\Debug\net6.0\Data.Nikom.dll
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\bin\Debug\net6.0\Data.Nikom.pdb
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.csproj.AssemblyReference.cache
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.AssemblyInfoInputs.cache
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.AssemblyInfo.cs
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.csproj.CoreCompileInputs.cache
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.dll
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\refint\Data.Nikom.dll
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.pdb
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\ref\Data.Nikom.dll
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\bin\Debug\net6.0\Data.Nikom.runtimeconfig.json
+C:\Users\Володимир\source\repos\Nikom\Data.Nikom\obj\Debug\net6.0\Data.Nikom.genruntimeconfig.cache

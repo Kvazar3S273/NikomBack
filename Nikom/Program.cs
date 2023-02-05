@@ -1,8 +1,19 @@
+using Data.Nikom;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppEFContext>(options =>
+{
+    options
+    .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 
