@@ -10,7 +10,7 @@ namespace Nikom.Controllers
     {
         [HttpPost]
         [Route("register")]
-        public IActionResult Register([FromBody] RegisterViewModel model)
+        public IActionResult Register([FromForm] RegisterViewModel model)
         {
             return Ok();
         }
