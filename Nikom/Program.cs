@@ -1,16 +1,24 @@
 using Data.Nikom;
 using Data.Nikom.Entities.Identity;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Nikom.Mapper;
+using Nikom.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -35,6 +43,32 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     .AddEntityFrameworkStores<AppEFContext>()
     .AddDefaultTokenProviders();
 
+//Configuration from AppSettings
+//var appSettingSection = configuration.GetSection("AppSetting");
+//builder.Services.Configure<AppSettings>(appSettingSection);
+
+// Adding Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+// Adding Jwt Bearer
+.AddJwtBearer(options =>
+{
+    options.SaveToken = false;
+    //options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AppSetting:Key"]))
+    };
+});
+
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
 {
@@ -46,6 +80,8 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
     });
 });
 
+builder.Services.AddControllersWithViews().AddFluentValidation();
+builder.Services.AddAutoMapper(typeof(AppMapProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,6 +97,9 @@ app.UseSwaggerUI((SwaggerUIOptions c) =>
 
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseCors(x => x
             .AllowAnyOrigin()
