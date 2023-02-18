@@ -7,13 +7,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Nikom.Mapper;
+using Nikom.Models;
 using Nikom.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,8 +49,8 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     .AddDefaultTokenProviders();
 
 //Configuration from AppSettings
-//var appSettingSection = configuration.GetSection("AppSetting");
-//builder.Services.Configure<AppSettings>(appSettingSection);
+var appSettingSection = configuration.GetSection("AppSetting");
+builder.Services.Configure<AppSettings>(appSettingSection);
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
@@ -78,7 +83,32 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
         Version = "v1",
         Title = "Nikom"
     });
+    o.AddSecurityDefinition("Bearer",
+        new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer"
+        });
+    o.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Id = "Bearer",
+                    Type = ReferenceType.SecurityScheme
+                }
+            }, new List<string>()
+        }
+    });
 });
+
+//builder.Services.AddSpaStaticFiles(configuration =>
+//{
+//    configuration.RootPath = "frontend/build";
+//});
 
 builder.Services.AddControllersWithViews().AddFluentValidation();
 builder.Services.AddAutoMapper(typeof(AppMapProfile));
@@ -100,6 +130,17 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+var dir = Path.Combine(Directory.GetCurrentDirectory(), "images");
+if (!Directory.Exists(dir))
+{
+    Directory.CreateDirectory(dir);
+}
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(dir),
+    RequestPath = "/images"
+});
 
 app.UseCors(x => x
             .AllowAnyOrigin()
