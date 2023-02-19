@@ -18,11 +18,11 @@ namespace Nikom.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly IJwtTokenService _jwtTokenService;
+        private readonly IJwtConfig _jwtTokenService;
         private readonly RoleManager<AppRole> _roleManager;
         public AccountController(
             UserManager<AppUser> userManager,
-            IJwtTokenService jwtTokenService,
+            IJwtConfig jwtTokenService,
             RoleManager<AppRole> roleManager,
             SignInManager<AppUser> signInManager,
             IMapper mapper)
@@ -81,6 +81,7 @@ namespace Nikom.Controllers
                 var user = new AppUser
                 {
                     Email = model.Email,
+                    UserName = model.Email,
                     FirstName = model.FirstName,
                     SecondName = model.SecondName
                 };

@@ -3,6 +3,7 @@ using Data.Nikom.Entities.Identity;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,13 +28,16 @@ ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppEFContext>(options =>
 {
     options
     .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+//tokens
+builder.Services.AddScoped<IJwtConfig, JwtConfig>();
 
 // For Identity
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
@@ -43,10 +47,11 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
-    options.User.AllowedUserNameCharacters = "Привіт Марс, я не знаю шо це тут було";
 })
     .AddEntityFrameworkStores<AppEFContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddControllers();
 
 //Configuration from AppSettings
 var appSettingSection = configuration.GetSection("AppSettings");
@@ -69,11 +74,15 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidateIssuer = false,
         ValidateAudience = false,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AppSettings:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettingSection.Key))
     };
 });
 
-builder.Services.AddScoped<IJwtConfig, JwtConfig>();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddTransient<IValidator<RegisterViewModel>, UserValidator>();
+builder.Services.AddAutoMapper(typeof(AppMapProfile));
 
 builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
 {
@@ -110,11 +119,14 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
 //    configuration.RootPath = "frontend/build";
 //});
 
-builder.Services.AddControllersWithViews().AddFluentValidation();
-builder.Services.AddAutoMapper(typeof(AppMapProfile));
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
+//Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
 }
@@ -126,10 +138,7 @@ app.UseSwaggerUI((SwaggerUIOptions c) =>
 });
 
 app.UseStaticFiles();
-app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
 
 var dir = Path.Combine(Directory.GetCurrentDirectory(), "images");
 if (!Directory.Exists(dir))
@@ -141,6 +150,11 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(dir),
     RequestPath = "/images"
 });
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseCors(x => x
             .AllowAnyOrigin()
