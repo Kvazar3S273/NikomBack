@@ -62,7 +62,7 @@ namespace Nikom.Controllers
         //    {
         //        return BadRequest(result.Errors);
         //    }
-        //    return Ok(new 
+        //    return Ok(new
         //    {
         //        token = _jwtTokenService.CreateToken(user)
         //    });

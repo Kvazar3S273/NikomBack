@@ -49,7 +49,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     .AddDefaultTokenProviders();
 
 //Configuration from AppSettings
-var appSettingSection = configuration.GetSection("AppSetting");
+var appSettingSection = configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingSection);
 
 // Adding Authentication
@@ -63,17 +63,17 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
     options.SaveToken = false;
-    //options.RequireHttpsMetadata = false;
+    options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuerSigningKey = true,
         ValidateIssuer = false,
         ValidateAudience = false,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AppSetting:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AppSettings:Key"]))
     };
 });
 
-builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IJwtConfig, JwtConfig>();
 
 builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
 {
