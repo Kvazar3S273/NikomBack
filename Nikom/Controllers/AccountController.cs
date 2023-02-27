@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nikom.Constants;
 using Nikom.Models;
 using Nikom.Services;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -77,7 +78,7 @@ namespace Nikom.Controllers
                     Name = Roles.User
                 };
                 var result1 = _roleManager.CreateAsync(role).Result;
-
+                string fileName = String.Empty;
                 var user = new AppUser
                 {
                     Email = model.Email,
@@ -91,7 +92,7 @@ namespace Nikom.Controllers
                     string randomFileName = Path.GetRandomFileName() +
                         Path.GetExtension(model.Photo.FileName);
                     string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "images");
-                    string fileName = Path.Combine(dirPath, randomFileName);
+                    fileName = Path.Combine(dirPath, randomFileName);
                     using (var file = System.IO.File.Create(fileName))
                     {
                         model.Photo.CopyTo(file);
@@ -102,7 +103,12 @@ namespace Nikom.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (!result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(fileName))
+                        System.IO.File.Delete(fileName);
                     return BadRequest(new { message = result.Errors });
+
+                }
 
                 await _userManager.AddToRoleAsync(user, role.Name);
 
