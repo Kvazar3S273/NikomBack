@@ -5,10 +5,10 @@ using Nikom.Models;
 
 namespace Nikom.Validators
 {
-    public class ValidatorRegisterViewModel : AbstractValidator<RegisterViewModel>
+    public class RegisterValidator : AbstractValidator<RegisterViewModel>
     {
         private readonly UserManager<AppUser> _userManager;
-        public ValidatorRegisterViewModel(UserManager<AppUser> userManager)
+        public RegisterValidator(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
             RuleFor(x => x.Email)

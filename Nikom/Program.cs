@@ -1,5 +1,6 @@
 using Data.Nikom;
 using Data.Nikom.Entities.Identity;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using Nikom.Mapper;
 using Nikom.Models;
 using Nikom.Services;
+using Nikom.Validators;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -81,7 +83,9 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddTransient<IValidator<RegisterViewModel>, UserValidator>();
+
+builder.Services.AddTransient<IValidator<RegisterViewModel>, RegisterValidator>();
+
 builder.Services.AddAutoMapper(typeof(AppMapProfile));
 
 builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
