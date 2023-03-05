@@ -22,13 +22,13 @@ namespace Nikom.Validators
                    .Must(BeUniqueEmail)
                    .WithMessage("Дана пошта уже зареєстрована!");
                });
-            RuleFor(x => x.Password)
-                .NotEmpty()
-                .WithName("Password")
-                .WithMessage("Поле пароль є обов'язковим!")
-                .MinimumLength(5)
-                .WithName("Password")
-                .WithMessage("Поле пароль має містити міннімум 5 символів!");
+            //RuleFor(x => x.Password)
+            //    .NotEmpty()
+            //    .WithName("Password")
+            //    .WithMessage("Поле пароль є обов'язковим!")
+            //    .MinimumLength(5)
+            //    .WithName("Password")
+            //    .WithMessage("Поле пароль має містити міннімум 5 символів!");
 
             //.Matches("[A-Z]").WithName("Password").WithMessage("Password must contain one or more capital letters.")
             //.Matches("[a-z]").WithName("Password").WithMessage("Password must contain one or more lowercase letters.")
@@ -36,12 +36,12 @@ namespace Nikom.Validators
             //.Matches(@"[][""!@$%^&*(){}:;<>,.?/+_=|'~\\-]").WithName("Password").WithMessage("Password must contain one or more special characters.")
             //.Matches("^[^£# “”]*$").WithName("Password").WithMessage("Password must not contain the following characters £ # “” or spaces.");
             
-            RuleFor(x => x.ConfirmPassword)
-                .NotEmpty()
-                .WithName("ConfirmPassword")
-                .WithMessage("Поле є обов'язковим!")
-                .Equal(x => x.Password)
-                .WithMessage("Поролі не співпадають!");
+            //RuleFor(x => x.ConfirmPassword)
+            //    .NotEmpty()
+            //    .WithName("ConfirmPassword")
+            //    .WithMessage("Поле є обов'язковим!")
+            //    .Equal(x => x.Password)
+            //    .WithMessage("Паролі не співпадають!");
         }
         private bool BeUniqueEmail(string email)
         {
