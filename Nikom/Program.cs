@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Nikom.Mapper;
 using Nikom.Models;
+using Nikom.Seeder;
 using Nikom.Services;
 using Nikom.Validators;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -159,6 +160,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+await app.SeedData();
 
 app.UseCors(x => x
             .AllowAnyOrigin()
