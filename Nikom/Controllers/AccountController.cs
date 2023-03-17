@@ -124,5 +124,25 @@ namespace Nikom.Controllers
                 return BadRequest(new { message = "Error database" });
             }
         }
+
+        [HttpPost]
+        [Route("login")]
+
+        public async Task<IActionResult> Login([FromForm] LoginViewModel model)
+        {
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "Incorrect data!" });
+            }
+
+            return Ok(new
+            {
+                token = _jwtTokenService.CreateToken(user)
+            });
+        }
+
     }
 }
