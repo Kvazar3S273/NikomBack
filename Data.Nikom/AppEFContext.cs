@@ -6,6 +6,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Globalization;
 using System.Reflection;
 using System;
+using Data.Nikom.Entities.Products;
 
 namespace Data.Nikom
 {
@@ -18,6 +19,10 @@ namespace Data.Nikom
         {
 
         }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Part> Parts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
