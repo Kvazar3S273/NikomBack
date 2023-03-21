@@ -163,6 +163,11 @@ app.UseAuthorization();
 
 await app.SeedData();
 
+app.CategorySeedData();
+app.SubCategorySeedData();
+app.LocationSeedData();
+app.PartSeedData();
+
 app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
