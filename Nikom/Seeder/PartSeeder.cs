@@ -122,7 +122,7 @@ namespace Nikom.Seeder
                         new Part
                         {
                              Name="KT315A",
-                             Photo="picture_transistor",
+                             PartPhoto={ },
                              Price=2,
                              CategoryId=1,
                              SubCategoryId=1,
@@ -131,7 +131,7 @@ namespace Nikom.Seeder
                         new Part
                         {
                              Name="KT361B",
-                             Photo="picture_transistor",
+                             PartPhoto={ },
                              Price=2,
                              CategoryId=1,
                              SubCategoryId=2,
@@ -140,7 +140,7 @@ namespace Nikom.Seeder
                         new Part
                         {
                              Name="1N4007",
-                             Photo="picture_diode",
+                             PartPhoto={ },
                              Price=1,
                              CategoryId=2,
                              SubCategoryId=3,
@@ -149,7 +149,7 @@ namespace Nikom.Seeder
                         new Part
                         {
                              Name="PIC16F628A",
-                             Photo="picture_MC",
+                             PartPhoto={ },
                              Price=97,
                              CategoryId=5,
                              SubCategoryId=5,

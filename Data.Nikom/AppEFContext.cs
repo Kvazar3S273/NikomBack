@@ -23,6 +23,7 @@ namespace Data.Nikom
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Part> Parts { get; set; }
+        public DbSet<PartPhoto> PartPhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

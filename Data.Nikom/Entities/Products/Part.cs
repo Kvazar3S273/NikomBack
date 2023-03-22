@@ -16,7 +16,8 @@ namespace Data.Nikom.Entities.Products
 
         [Required, StringLength(255)]
         public string? Name { get; set; }
-        public string? Photo { get; set; }
+
+        public virtual ICollection<PartPhoto> PartPhoto { get; set; }
 
         [Required]
         public float Price { get; set; }
