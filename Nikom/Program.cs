@@ -87,7 +87,11 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddTransient<IValidator<RegisterViewModel>, RegisterValidator>();
 
+//Mapper area
 builder.Services.AddAutoMapper(typeof(AppMapProfile));
+builder.Services.AddAutoMapper(typeof(CategoryMapProfile));
+builder.Services.AddAutoMapper(typeof(SubCategoryMapProfile));
+builder.Services.AddAutoMapper(typeof(LocationMapProfile));
 
 builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
 {
