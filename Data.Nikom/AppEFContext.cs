@@ -22,6 +22,8 @@ namespace Data.Nikom
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Location> Locations { get; set; }
+        //public DbSet<Box> Boxes { get; set; }
+
         public DbSet<Part> Parts { get; set; }
         public DbSet<PartPhoto> PartPhotos { get; set; }
 

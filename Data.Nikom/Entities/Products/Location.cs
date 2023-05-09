@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,7 @@ namespace Data.Nikom.Entities.Products
         [Required, StringLength(100)]
         public string? Name { get; set; }
         [Required, StringLength(10)]
-        public string? Box { get; set; } 
+        public string? Box { get; set; }
+        //public virtual ICollection<Box>? Boxes { get; set; }
     }
 }
