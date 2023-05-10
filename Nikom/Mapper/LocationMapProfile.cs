@@ -11,7 +11,8 @@ namespace Nikom.Mapper
             CreateMap<Location, LocationViewModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(dest => dest.Name))
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(dest => dest.Id))
-                .ForMember(dest => dest.Box, opt => opt.MapFrom(dest => dest.Box));
+                //.ForMember(dest => dest.Box, opt => opt.MapFrom(dest => dest.Box))
+                ;
         }
     }
 }

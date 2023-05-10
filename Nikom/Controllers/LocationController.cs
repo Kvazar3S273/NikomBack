@@ -61,7 +61,7 @@ namespace Nikom.Controllers
             var item = new Location
             {
                 Name = model.Name,
-                Box = model.Box
+                //Box = model.Box
             };
             _context.Locations.Add(item);
             await _context.SaveChangesAsync();
@@ -95,7 +95,7 @@ namespace Nikom.Controllers
 
             //editItem.Box = model.Box;
             editItem.Name = CheckFieldForNull(editItem.Name, model.Name, model.Name);
-            editItem.Box = CheckFieldForNull(editItem.Box, model.Box, model.Box);
+            //editItem.Box = CheckFieldForNull(editItem.Box, model.Box, model.Box);
             await _context.SaveChangesAsync();
             return NoContent();
         }

@@ -148,6 +148,29 @@ namespace Data.Nikom.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
+            modelBuilder.Entity("Data.Nikom.Entities.Products.Box", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("tblBox");
+                });
+
             modelBuilder.Entity("Data.Nikom.Entities.Products.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -173,11 +196,6 @@ namespace Data.Nikom.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Box")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -373,6 +391,17 @@ namespace Data.Nikom.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Data.Nikom.Entities.Products.Box", b =>
+                {
+                    b.HasOne("Data.Nikom.Entities.Products.Location", "Location")
+                        .WithMany("Boxes")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("Data.Nikom.Entities.Products.Part", b =>
                 {
                     b.HasOne("Data.Nikom.Entities.Products.Category", "Category")
@@ -455,6 +484,11 @@ namespace Data.Nikom.Migrations
             modelBuilder.Entity("Data.Nikom.Entities.Identity.AppUser", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Data.Nikom.Entities.Products.Location", b =>
+                {
+                    b.Navigation("Boxes");
                 });
 
             modelBuilder.Entity("Data.Nikom.Entities.Products.Part", b =>

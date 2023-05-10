@@ -92,21 +92,55 @@ namespace Nikom.Seeder
                         new Location
                         {
                              Name="Склад",
-                             Box="110"
+                             //Box="110"
                         },
                         new Location
                         {
                              Name="Магазин",
-                             Box="218"
+                             //Box="218"
                         },
                         new Location
                         {
                              Name="Ангар",
-                             Box="705"
+                             //Box="705"
                         }
                         
                 };
                 context.Locations.AddRange(locations);
+                context.SaveChanges();
+            }
+        }
+        public static void BoxSeedData(this IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.Boxes.Any())
+            {
+                var boxes = new List<Box>()
+                {
+                        new Box
+                        {
+                             Name="T12",
+                             LocationId=1
+                        },
+                        new Box
+                        {
+                             Name="T24",
+                             LocationId=2
+                        },
+                        new Box
+                        {
+                             Name="R170",
+                             LocationId=3
+                        },
+                        new Box
+                        {
+                             Name="C2",
+                             LocationId=1
+                        }
+                };
+                context.Boxes.AddRange(boxes);
                 context.SaveChanges();
             }
         }

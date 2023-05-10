@@ -170,6 +170,7 @@ await app.SeedData();
 app.CategorySeedData();
 app.SubCategorySeedData();
 app.LocationSeedData();
+app.BoxSeedData();
 app.PartSeedData();
 
 app.UseCors(x => x

@@ -16,8 +16,8 @@ namespace Data.Nikom.Entities.Products
         public int Id { get; set; }
         [Required, StringLength(100)]
         public string? Name { get; set; }
-        [Required, StringLength(10)]
-        public string? Box { get; set; }
-        //public virtual ICollection<Box>? Boxes { get; set; }
+        //[Required, StringLength(10)]
+        //public string? Box { get; set; }
+        public virtual ICollection<Box>? Boxes { get; set; }
     }
 }
